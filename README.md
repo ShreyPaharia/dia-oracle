@@ -69,3 +69,7 @@ the IDIAOracleV2 interface specifies three functions:
 3. `updateOracleUpdaterAddress(address newOracleUpdaterAddress) external`: This function is used to update the address of the Oracle Updater contract in the DIA Oracle. It takes a single parameter newOracleUpdaterAddress (an address representing the new address of the Oracle Updater contract).
 
 The IDIAOracleV2 interface defines the required functions for interacting with the DIA Oracle contract. Any contract that wants to interact with the DIA Oracle needs to implement these functions according to the specified interface.
+
+# Deployment
+
+[Adapter for BTC/USD on Goerli Test Network](https://goerli.etherscan.io/address/0xE6Dd457410d5011F5A151990a444bc3Ee3fA1a14)
