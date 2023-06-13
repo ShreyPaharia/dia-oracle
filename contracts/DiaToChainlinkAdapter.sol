@@ -25,6 +25,14 @@ contract DiaToChainlinkAdapter is AggregatorV3Interface, Ownable {
         _pairKey = pairKey;
     }
 
+    function pairKey() external view returns (string memory) {
+        return _pairKey;
+    }
+
+    function setPairKey(string memory newPairKey) external onlyOwner {
+        _pairKey = newPairKey;
+    }
+
     function version() external view override returns (uint256) {
         return _version;
     }

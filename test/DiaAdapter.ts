@@ -10,7 +10,7 @@ describe("DiaToChainlinkAdapter", function () {
   let deployer: SignerWithAddress;
   let user1: SignerWithAddress;
 
-  before(async function () {
+  beforeEach(async function () {
     [deployer, user1] = await ethers.getSigners();
     const diaToChainlinkAdapterFactory = await ethers.getContractFactory("DiaToChainlinkAdapter");
     const diaOracleV2Factory = await ethers.getContractFactory("DIAOracleV2");
@@ -18,6 +18,18 @@ describe("DiaToChainlinkAdapter", function () {
     diaOracle = await diaOracleV2Factory.deploy();
     adapter = await diaToChainlinkAdapterFactory.deploy(diaOracle.address,"BTC Oracle","BTC/USD");
     await adapter.deployed();
+  });
+
+  it("should return the correct pairKey", async function () {
+    const pairKey = await adapter.pairKey();
+    expect(pairKey).to.equal("BTC/USD");
+  });
+
+  it("should update the pairKey by the owner", async function () {
+    await expect(adapter.connect(user1).setPairKey("ETH/USD")).to.be.revertedWith("Ownable: caller is not the owner");
+    await adapter.setPairKey("ETH/USD"); // Update pairKey
+    const pairKey = await adapter.pairKey();
+    expect(pairKey).to.equal("ETH/USD");
   });
 
   it("should return the correct decimals", async function () {
