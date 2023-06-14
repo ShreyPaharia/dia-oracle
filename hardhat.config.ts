@@ -40,11 +40,6 @@ const config: HardhatUserConfig = {
     currency: 'USD',
     gasPrice: 90
   },
-  etherscan: {
-    apiKey: {
-      sepolia: 'A1SUQVDSEJPFNUYNN5N4XVAQE6WCR7F5US'
-    }
-  }
 };
 
 export default config;

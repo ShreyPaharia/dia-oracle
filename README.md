@@ -72,4 +72,4 @@ The IDIAOracleV2 interface defines the required functions for interacting with t
 
 # Deployment
 
-[Adapter for BTC/USD on Goerli Test Network](https://goerli.etherscan.io/address/0xE6Dd457410d5011F5A151990a444bc3Ee3fA1a14)
+[Adapter for BTC/USD on Goerli Test Network](https://goerli.etherscan.io/address/0x8cc025e0674eeae33e05d92742ef8e4cd635dbe9)
