@@ -18,11 +18,19 @@ contract DiaToChainlinkAdapter is AggregatorV3Interface, Ownable {
     string private _description;
     string private _pairKey;
 
-    constructor(address diaOracleAddress, string memory description_, string memory pairKey) {
-        diaOracle = IDIAOracleV2(diaOracleAddress);
+    constructor(address diaOracleAddress_, string memory description_, string memory pairKey_) {
+        diaOracle = IDIAOracleV2(diaOracleAddress_);
         _decimals = 8;
         _description = description_;
-        _pairKey = pairKey;
+        _pairKey = pairKey_;
+    }
+
+    function diaOracleAddress() external view returns (address) {
+        return address(diaOracle);
+    }
+
+    function setDiaOracleAddress(address newDiaOracleAddress) external onlyOwner {
+        diaOracle = IDIAOracleV2(newDiaOracleAddress);
     }
 
     function pairKey() external view returns (string memory) {

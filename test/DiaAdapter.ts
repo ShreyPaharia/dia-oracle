@@ -7,6 +7,7 @@ import { mainnetConstants } from "./constants";
 describe("DiaToChainlinkAdapter", function () {
   let adapter: DiaToChainlinkAdapter;
   let diaOracle: DIAOracleV2;
+  let diaOracle2: DIAOracleV2;
   let deployer: SignerWithAddress;
   let user1: SignerWithAddress;
 
@@ -16,8 +17,22 @@ describe("DiaToChainlinkAdapter", function () {
     const diaOracleV2Factory = await ethers.getContractFactory("DIAOracleV2");
 
     diaOracle = await diaOracleV2Factory.deploy();
+    diaOracle2 = await diaOracleV2Factory.deploy();
+
     adapter = await diaToChainlinkAdapterFactory.deploy(diaOracle.address,"BTC Oracle","BTC/USD");
     await adapter.deployed();
+  });
+
+  it("should return the correct address of the DIA oracle", async function () {
+    const diaOracleAddress = await adapter.diaOracleAddress();
+    expect(diaOracleAddress).to.equal(diaOracle.address);
+  });
+
+  it("should update the DIA oracle address by the owner", async function () {
+    await expect(adapter.connect(user1).setDiaOracleAddress(diaOracle2.address)).to.be.revertedWith("Ownable: caller is not the owner");
+    await adapter.setDiaOracleAddress(diaOracle2.address); // Update DIA oracle address
+    const diaOracleAddress = await adapter.diaOracleAddress();
+    expect(diaOracleAddress).to.equal(diaOracle2.address);
   });
 
   it("should return the correct pairKey", async function () {
